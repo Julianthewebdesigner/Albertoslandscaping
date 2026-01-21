@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alberto's Landscaping LLC | Seattle & Kent's Premier Contractor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      h1, h2, h3 {
+        font-family: 'Playfair Display', serif;
+      }
+      @keyframes gradientFlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      @keyframes iconGlowPulse {
+        0% { box-shadow: 0 0 0 0 rgba(163, 230, 53, 0.5); }
+        70% { box-shadow: 0 0 0 20px rgba(163, 230, 53, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(163, 230, 53, 0); }
+      }
+      @keyframes borderBeam {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+      }
+      .animated-gradient {
+        background: linear-gradient(-45deg, #1a3a32, #2d5a27, #1e3a1b, #3e6b27);
+        background-size: 400% 400%;
+        animation: gradientFlow 15s ease infinite;
+      }
+      .light-beam {
+        background-image: radial-gradient(circle at 50% -20%, rgba(255,255,255,0.15) 0%, transparent 70%);
+      }
+      .hover-glow:hover {
+        animation: iconGlowPulse 2s infinite;
+      }
+      .card-glow {
+        background: radial-gradient(circle at top right, rgba(163, 230, 53, 0.05), transparent);
+      }
+      /* Custom Micro-Interactions */
+      .btn-beam {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+      }
+      .btn-beam::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(90deg, #bef264, #10b981, #bef264);
+        background-size: 200% 100%;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s;
+        border-radius: inherit;
+        animation: borderBeam 2s linear infinite;
+      }
+      .btn-beam:hover::before {
+        opacity: 1;
+      }
+      .proximity-card:hover .proximity-glow {
+        opacity: 1;
+      }
+      .proximity-glow {
+        pointer-events: none;
+        position: absolute;
+        inset: -1px;
+        background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(190, 242, 100, 0.15), transparent 40%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        border-radius: inherit;
+        z-index: 0;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-stone-50 text-stone-900 overflow-x-hidden">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
