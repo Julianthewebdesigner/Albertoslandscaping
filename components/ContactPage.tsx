@@ -3,8 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { MapPin, Mail, Phone, Send, Check, Leaf, ExternalLink, MessageCircle } from 'lucide-react';
 import { EMAIL, PHONE, ADDRESS, AREAS } from '../constants';
 import { MetaTags } from './MetaTags';
-import emailjs from '@emailjs/browser';
-import { EMAILJS_CONFIG } from '../emailConfig';
+import { sendLeadEmail, extractFormData } from '../lib/sendLeadEmail';
 
 export const ContactPage: React.FC = () => {
   useEffect(() => {
@@ -21,27 +20,11 @@ export const ContactPage: React.FC = () => {
     setSubmitStatus('idle');
 
     const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    // Prepare template parameters matching your EmailJS template exactly
-    const templateParams = {
-      name: formData.get('name') as string,
-      email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
-      service: formData.get('service') as string,
-      city: formData.get('city') as string,
-      message: formData.get('message') as string,
-      time: formData.get('time') as string,
-    };
 
     try {
-      // Send email using EmailJS
-      await emailjs.send(
-        EMAILJS_CONFIG.serviceId,
-        EMAILJS_CONFIG.templateId,
-        templateParams,
-        EMAILJS_CONFIG.publicKey
-      );
+      // Extract and send form data using helper
+      const leadData = extractFormData(form);
+      await sendLeadEmail(leadData);
 
       // Show success message
       setSubmitStatus('success');
@@ -53,7 +36,7 @@ export const ContactPage: React.FC = () => {
         setIsSubmitting(false);
       }, 3000);
     } catch (error) {
-      console.error('EmailJS Error:', error);
+      console.error('Form submission error:', error);
       setSubmitStatus('error');
       setIsSubmitting(false);
     }
@@ -202,12 +185,12 @@ export const ContactPage: React.FC = () => {
                 {/* Status Messages */}
                 {submitStatus === 'success' && (
                   <div className="p-4 bg-lime-100 border border-lime-400 text-lime-800 rounded-2xl text-sm font-medium text-center">
-                    ✓ Message sent successfully! We'll get back to you within 24 hours.
+                    ✓ Thanks! We'll contact you within 24 hours.
                   </div>
                 )}
                 {submitStatus === 'error' && (
                   <div className="p-4 bg-red-100 border border-red-400 text-red-800 rounded-2xl text-sm font-medium text-center">
-                    Something went wrong. Please try calling us directly at {PHONE}.
+                    Something went wrong, please call or text us at {PHONE}.
                   </div>
                 )}
               </form>

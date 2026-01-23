@@ -1,48 +1,52 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { ArrowRight, CheckCircle } from 'lucide-react';
-import { EMAIL } from '../constants';
+import { PHONE } from '../constants';
+import { sendLeadEmail } from '../lib/sendLeadEmail';
 
 export const Hero: React.FC = () => {
-  const [formData, setFormData] = useState({
-    service: '',
-    location: '',
-    phone: '',
-    from_name: ''  // Added for EmailJS template
-  });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const formRef = useRef<HTMLDivElement>(null);
+  const htmlFormRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
-    // Create email with form data
-    const subject = encodeURIComponent(`Free Quote Request - ${formData.service}`);
-    const body = encodeURIComponent(
-      `NEW QUOTE REQUEST\n\n` +
-      `Service: ${formData.service}\n` +
-      `Location: ${formData.location}\n` +
-      `Phone: ${formData.phone}\n\n` +
-      `Please contact this customer within 24 hours.`
-    );
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
-    // Open email client with pre-filled information
-    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    try {
+      // Prepare data for EmailJS using the template variables
+      const leadData = {
+        name: formData.get('name') as string,
+        email: formData.get('email') as string,
+        phone: formData.get('phone') as string,
+        service: formData.get('service') as string,
+        city: formData.get('city') as string,
+        message: `Quick quote request for ${formData.get('service')} in ${formData.get('city')}`,
+        time: 'anytime',
+      };
 
-    // Show success message
-    setSubmitStatus('success');
-    setFormData({ service: '', location: '', phone: '', from_name: '' });
+      await sendLeadEmail(leadData);
 
-    // Reset success message and button after 3 seconds
-    setTimeout(() => {
-      setSubmitStatus('idle');
+      // Show success message
+      setSubmitStatus('success');
+      form.reset();
+
+      // Reset success message and button after 3 seconds
+      setTimeout(() => {
+        setSubmitStatus('idle');
+        setIsSubmitting(false);
+      }, 3000);
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
       setIsSubmitting(false);
-    }, 3000);
+    }
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -109,47 +113,67 @@ export const Hero: React.FC = () => {
           
           <h2 className="text-3xl font-bold text-stone-900 mb-2 relative z-10">Get a Free Quotation</h2>
           <p className="text-stone-500 mb-8 relative z-10">Send us your project details and we'll be in touch within 24 hours.</p>
-          
-          <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
+
+          <form ref={htmlFormRef} onSubmit={handleSubmit} className="space-y-4 relative z-10">
             <div>
-              <label className="block text-sm font-bold text-stone-700 mb-2 ml-1">Type of Service</label>
-              <select 
+              <label className="block text-sm font-bold text-stone-700 mb-2 ml-1">Full Name</label>
+              <input
+                type="text"
+                name="name"
                 required
+                placeholder="Your Name"
                 className="w-full px-5 py-4 bg-stone-100 rounded-2xl border-none focus:ring-2 focus:ring-emerald-600 transition-all outline-none text-stone-900 font-medium"
-                value={formData.service}
-                onChange={(e) => setFormData({...formData, service: e.target.value})}
-              >
-                <option value="">Select a service...</option>
-                <option value="Lawn Maintenance">Lawn Maintenance</option>
-                <option value="Tree Pruning">Tree Pruning</option>
-                <option value="Landscape Design">Landscape Design</option>
-                <option value="Hardscaping">Hardscaping</option>
-                <option value="Clean-up">Seasonal Clean-up</option>
-                <option value="Material">Material Delivery & Install</option>
-              </select>
+              />
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-bold text-stone-700 mb-2 ml-1">Location</label>
-                <input 
-                  type="text" 
+                <label className="block text-sm font-bold text-stone-700 mb-2 ml-1">Email Address</label>
+                <input
+                  type="email"
+                  name="email"
                   required
-                  placeholder="e.g. Kent, WA"
+                  placeholder="example@mail.com"
                   className="w-full px-5 py-4 bg-stone-100 rounded-2xl border-none focus:ring-2 focus:ring-emerald-600 transition-all outline-none text-stone-900 font-medium"
-                  value={formData.location}
-                  onChange={(e) => setFormData({...formData, location: e.target.value})}
                 />
               </div>
               <div>
                 <label className="block text-sm font-bold text-stone-700 mb-2 ml-1">Phone Number</label>
-                <input 
-                  type="tel" 
+                <input
+                  type="tel"
+                  name="phone"
                   required
                   placeholder="206-853-1582"
                   className="w-full px-5 py-4 bg-stone-100 rounded-2xl border-none focus:ring-2 focus:ring-emerald-600 transition-all outline-none text-stone-900 font-medium"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-bold text-stone-700 mb-2 ml-1">Type of Service</label>
+                <select
+                  name="service"
+                  required
+                  className="w-full px-5 py-4 bg-stone-100 rounded-2xl border-none focus:ring-2 focus:ring-emerald-600 transition-all outline-none text-stone-900 font-medium"
+                >
+                  <option value="">Select a service...</option>
+                  <option value="Lawn Maintenance">Lawn Maintenance</option>
+                  <option value="Tree Pruning">Tree Pruning</option>
+                  <option value="Landscape Design">Landscape Design</option>
+                  <option value="Hardscaping">Hardscaping</option>
+                  <option value="Seasonal Clean-up">Seasonal Clean-up</option>
+                  <option value="Material Delivery & Install">Material Delivery & Install</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-stone-700 mb-2 ml-1">City</label>
+                <input
+                  type="text"
+                  name="city"
+                  required
+                  placeholder="e.g. Kent, WA"
+                  className="w-full px-5 py-4 bg-stone-100 rounded-2xl border-none focus:ring-2 focus:ring-emerald-600 transition-all outline-none text-stone-900 font-medium"
                 />
               </div>
             </div>
@@ -168,12 +192,12 @@ export const Hero: React.FC = () => {
             {/* Status Messages */}
             {submitStatus === 'success' && (
               <div className="mt-4 p-4 bg-lime-100 border border-lime-400 text-lime-800 rounded-2xl text-sm font-medium text-center">
-                ✓ Thank you! We'll contact you within 24 hours.
+                ✓ Thanks! We'll contact you within 24 hours.
               </div>
             )}
             {submitStatus === 'error' && (
               <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-800 rounded-2xl text-sm font-medium text-center">
-                Something went wrong. Please try calling us directly at (253) 630-1741.
+                Something went wrong, please call or text us at {PHONE}.
               </div>
             )}
           </form>
