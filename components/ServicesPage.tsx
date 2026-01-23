@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { SERVICES } from '../constants';
 import { CheckCircle2, ArrowRight, ArrowLeft } from 'lucide-react';
 import { EMAIL } from '../constants';
+import { MetaTags } from './MetaTags';
 
 interface ServicesPageProps {
   onNavigate?: (view: 'home' | 'services' | 'about' | 'reviews' | 'contact' | 'projects') => void;
@@ -58,9 +59,16 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="bg-stone-50 min-h-screen">
-      {/* Services Hero */}
-      <section className="relative py-32 md:py-48 overflow-hidden bg-emerald-950">
+    <>
+      <MetaTags
+        title="Our Services - Professional Landscaping Seattle & Kent | Alberto's Landscaping LLC"
+        description="Full-service landscaping in Seattle, Kent & Bellevue: Lawn care, tree trimming, hardscaping, irrigation, seasonal cleanup. Licensed & insured. Free estimates!"
+        image="https://albertoslandscaping.com/images/home-page/hardscape.jpeg"
+        url="https://albertoslandscaping.com/services"
+      />
+      <div className="bg-stone-50 min-h-screen">
+        {/* Services Hero */}
+        <section className="relative py-32 md:py-48 overflow-hidden bg-emerald-950">
         <div className="absolute inset-0 animated-gradient opacity-60 z-0"></div>
         <div className="absolute inset-0 light-beam opacity-40 z-0"></div>
         
@@ -180,5 +188,6 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
         </div>
       </section>
     </div>
+    </>
   );
 };

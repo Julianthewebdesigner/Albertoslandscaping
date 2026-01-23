@@ -1,6 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { Star, Quote, CheckCircle, ExternalLink, MessageCircle } from 'lucide-react';
+import { MetaTags } from './MetaTags';
 
 const DETAILED_REVIEWS = [
   {
@@ -59,9 +60,16 @@ export const ReviewsPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-stone-50 min-h-screen">
-      {/* Reviews Hero */}
-      <section className="relative py-32 md:py-48 overflow-hidden bg-emerald-950">
+    <>
+      <MetaTags
+        title="Customer Reviews - 5-Star Landscaping Seattle & Kent | Alberto's Landscaping LLC"
+        description="Read real reviews from satisfied customers in Seattle, Kent, Bellevue & Renton. See why we're the top-rated landscaping service in the Puget Sound area."
+        image="https://albertoslandscaping.com/images/home-page/completelawnsolutions.jpeg"
+        url="https://albertoslandscaping.com/reviews"
+      />
+      <div className="bg-stone-50 min-h-screen">
+        {/* Reviews Hero */}
+        <section className="relative py-32 md:py-48 overflow-hidden bg-emerald-950">
         <div className="absolute inset-0 animated-gradient opacity-60 z-0"></div>
         <div className="absolute inset-0 light-beam opacity-40 z-0"></div>
         
@@ -186,5 +194,6 @@ export const ReviewsPage: React.FC = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };

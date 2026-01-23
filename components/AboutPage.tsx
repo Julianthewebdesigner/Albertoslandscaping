@@ -1,6 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { CheckCircle, Shield, Clock, DollarSign, Rocket, ThumbsUp, Heart } from 'lucide-react';
+import { MetaTags } from './MetaTags';
 
 interface AboutPageProps {
   onNavigate: (view: 'home' | 'services' | 'about' | 'reviews' | 'contact') => void;
@@ -21,9 +22,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="bg-stone-50 min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-32 md:py-48 overflow-hidden bg-emerald-950">
+    <>
+      <MetaTags
+        title="About Us - Family-Owned Landscaping Since 2012 | Alberto's Landscaping LLC"
+        description="Meet Alberto & Julian Aguilar - family-owned landscaping in Seattle & Kent WA. 20+ years experience, licensed & insured. Owner-operated quality you can trust."
+        image="https://albertoslandscaping.com/images/about-us/alberto.jpg"
+        url="https://albertoslandscaping.com/about"
+      />
+      <div className="bg-stone-50 min-h-screen">
+        {/* Hero Section */}
+        <section className="relative py-32 md:py-48 overflow-hidden bg-emerald-950">
         <div className="absolute inset-0 animated-gradient opacity-60 z-0"></div>
         <div className="absolute inset-0 light-beam opacity-40 z-0"></div>
         
@@ -151,5 +159,6 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
          </button>
       </section>
     </div>
+    </>
   );
 };

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { CheckCircle, MapPin, Hammer } from 'lucide-react';
 import { ImageCarousel } from './ImageCarousel';
 import { EMAIL, PHONE } from '../constants';
+import { MetaTags } from './MetaTags';
 
 /*
   PROJECT CONFIGURATION
@@ -118,9 +119,16 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="bg-stone-50 min-h-screen">
-      {/* Projects Hero */}
-      <section className="relative py-32 md:py-48 overflow-hidden bg-emerald-950">
+    <>
+      <MetaTags
+        title="Our Projects - Landscaping Portfolio Seattle & Kent | Alberto's Landscaping LLC"
+        description="View our completed landscaping projects in Seattle, Kent, Bellevue & Renton. Real transformations featuring lawn care, hardscaping, design & installation work."
+        image="https://albertoslandscaping.com/images/grass-installation-burien-wa/IMG_0956.jpeg"
+        url="https://albertoslandscaping.com/projects"
+      />
+      <div className="bg-stone-50 min-h-screen">
+        {/* Projects Hero */}
+        <section className="relative py-32 md:py-48 overflow-hidden bg-emerald-950">
         <div className="absolute inset-0 animated-gradient opacity-60 z-0"></div>
         <div className="absolute inset-0 light-beam opacity-40 z-0"></div>
 
@@ -170,6 +178,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

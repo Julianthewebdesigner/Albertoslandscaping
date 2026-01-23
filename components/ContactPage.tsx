@@ -2,8 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { MapPin, Mail, Phone, Send, Check, Leaf, ExternalLink, MessageCircle } from 'lucide-react';
 import { EMAIL, PHONE, ADDRESS, AREAS } from '../constants';
-import emailjs from '@emailjs/browser';
-import { EMAILJS_CONFIG, isEmailConfigured } from '../emailConfig';
+import { MetaTags } from './MetaTags';
 
 export const ContactPage: React.FC = () => {
   useEffect(() => {
@@ -14,7 +13,7 @@ export const ContactPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
@@ -22,49 +21,43 @@ export const ContactPage: React.FC = () => {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
-    // Check if EmailJS is configured
-    if (!isEmailConfigured()) {
-      alert(`Thank you for contacting Alberto's Landscaping!\n\n⚠️ EMAIL NOT CONFIGURED: To receive form submissions, please set up EmailJS.\nSee emailConfig.ts for detailed instructions.`);
+    // Create email with form data
+    const subject = encodeURIComponent(`Contact Form - ${formData.get('service')} Inquiry`);
+    const body = encodeURIComponent(
+      `NEW CONTACT FORM SUBMISSION\n\n` +
+      `Name: ${formData.get('name')}\n` +
+      `Email: ${formData.get('email')}\n` +
+      `Phone: ${formData.get('phone')}\n` +
+      `Service: ${formData.get('service')}\n\n` +
+      `Message:\n${formData.get('message')}\n\n` +
+      `Please respond to this inquiry as soon as possible.`
+    );
+
+    // Open email client with pre-filled information
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+
+    // Show success message
+    setSubmitStatus('success');
+    form.reset();
+
+    // Reset success message and button after 3 seconds
+    setTimeout(() => {
+      setSubmitStatus('idle');
       setIsSubmitting(false);
-      return;
-    }
-
-    try {
-      // Send email to Alberto.30am@yahoo.com using EmailJS
-      await emailjs.send(
-        EMAILJS_CONFIG.SERVICE_ID,
-        EMAILJS_CONFIG.TEMPLATE_ID,
-        {
-          from_name: formData.get('name'),
-          phone: formData.get('phone'),
-          email: formData.get('email'),
-          service: formData.get('service'),
-          message: formData.get('message'),
-          to_email: EMAILJS_CONFIG.RECIPIENT_EMAIL,
-        },
-        EMAILJS_CONFIG.PUBLIC_KEY
-      );
-
-      setSubmitStatus('success');
-      form.reset();
-
-      // Reset success message after 5 seconds
-      setTimeout(() => setSubmitStatus('idle'), 5000);
-    } catch (error) {
-      console.error('EmailJS Error:', error);
-      setSubmitStatus('error');
-
-      // Reset error message after 5 seconds
-      setTimeout(() => setSubmitStatus('idle'), 5000);
-    } finally {
-      setIsSubmitting(false);
-    }
+    }, 3000);
   };
 
   return (
-    <div className="bg-stone-50 min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-32 md:py-48 overflow-hidden bg-emerald-950">
+    <>
+      <MetaTags
+        title="Contact Us - Free Quote for Landscaping Seattle & Kent | Alberto's Landscaping LLC"
+        description="Get a free estimate for landscaping services in Seattle, Kent, Bellevue & Renton. Call (206) 853-1582 or email Alberto.30am@yahoo.com. Licensed & insured."
+        image="https://albertoslandscaping.com/images/home-page/materialdelivery.jpeg"
+        url="https://albertoslandscaping.com/contact"
+      />
+      <div className="bg-stone-50 min-h-screen">
+        {/* Hero Section */}
+        <section className="relative py-32 md:py-48 overflow-hidden bg-emerald-950">
         <div className="absolute inset-0 animated-gradient opacity-60 z-0"></div>
         <div className="absolute inset-0 light-beam opacity-40 z-0"></div>
         
@@ -262,5 +255,6 @@ export const ContactPage: React.FC = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };

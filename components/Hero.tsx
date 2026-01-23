@@ -1,8 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowRight, CheckCircle } from 'lucide-react';
-import emailjs from '@emailjs/browser';
-import { EMAILJS_CONFIG, isEmailConfigured } from '../emailConfig';
+import { EMAIL } from '../constants';
 
 export const Hero: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -17,47 +16,33 @@ export const Hero: React.FC = () => {
 
   const formRef = useRef<HTMLDivElement>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
-    // Check if EmailJS is configured
-    if (!isEmailConfigured()) {
-      alert(`Thank you! Alberto will contact you regarding ${formData.service} at ${formData.location}.\n\n⚠️ EMAIL NOT CONFIGURED: To receive form submissions, please set up EmailJS.\nSee emailConfig.ts for detailed instructions.`);
+    // Create email with form data
+    const subject = encodeURIComponent(`Free Quote Request - ${formData.service}`);
+    const body = encodeURIComponent(
+      `NEW QUOTE REQUEST\n\n` +
+      `Service: ${formData.service}\n` +
+      `Location: ${formData.location}\n` +
+      `Phone: ${formData.phone}\n\n` +
+      `Please contact this customer within 24 hours.`
+    );
+
+    // Open email client with pre-filled information
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+
+    // Show success message
+    setSubmitStatus('success');
+    setFormData({ service: '', location: '', phone: '', from_name: '' });
+
+    // Reset success message and button after 3 seconds
+    setTimeout(() => {
+      setSubmitStatus('idle');
       setIsSubmitting(false);
-      return;
-    }
-
-    try {
-      // Send email to Alberto.30am@yahoo.com using EmailJS
-      await emailjs.send(
-        EMAILJS_CONFIG.SERVICE_ID,
-        EMAILJS_CONFIG.TEMPLATE_ID,
-        {
-          from_name: formData.from_name || 'Quick Quote Request',
-          service: formData.service,
-          location: formData.location,
-          phone: formData.phone,
-          to_email: EMAILJS_CONFIG.RECIPIENT_EMAIL,
-        },
-        EMAILJS_CONFIG.PUBLIC_KEY
-      );
-
-      setSubmitStatus('success');
-      setFormData({ service: '', location: '', phone: '', from_name: '' });
-
-      // Reset success message after 5 seconds
-      setTimeout(() => setSubmitStatus('idle'), 5000);
-    } catch (error) {
-      console.error('EmailJS Error:', error);
-      setSubmitStatus('error');
-
-      // Reset error message after 5 seconds
-      setTimeout(() => setSubmitStatus('idle'), 5000);
-    } finally {
-      setIsSubmitting(false);
-    }
+    }, 3000);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
