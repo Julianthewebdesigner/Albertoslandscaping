@@ -3,6 +3,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { MapPin, Mail, Phone, Send, Check, Leaf, ExternalLink, MessageCircle } from 'lucide-react';
 import { EMAIL, PHONE, ADDRESS, AREAS } from '../constants';
 import { MetaTags } from './MetaTags';
+import emailjs from '@emailjs/browser';
+import { EMAILJS_CONFIG } from '../emailConfig';
 
 export const ContactPage: React.FC = () => {
   useEffect(() => {
@@ -13,7 +15,7 @@ export const ContactPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
@@ -21,30 +23,40 @@ export const ContactPage: React.FC = () => {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
-    // Create email with form data
-    const subject = encodeURIComponent(`Contact Form - ${formData.get('service')} Inquiry`);
-    const body = encodeURIComponent(
-      `NEW CONTACT FORM SUBMISSION\n\n` +
-      `Name: ${formData.get('name')}\n` +
-      `Email: ${formData.get('email')}\n` +
-      `Phone: ${formData.get('phone')}\n` +
-      `Service: ${formData.get('service')}\n\n` +
-      `Message:\n${formData.get('message')}\n\n` +
-      `Please respond to this inquiry as soon as possible.`
-    );
+    // Prepare template parameters matching your EmailJS template exactly
+    const templateParams = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      phone: formData.get('phone') as string,
+      service: formData.get('service') as string,
+      city: formData.get('city') as string,
+      message: formData.get('message') as string,
+      time: formData.get('time') as string,
+    };
 
-    // Open email client with pre-filled information
-    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    try {
+      // Send email using EmailJS
+      await emailjs.send(
+        EMAILJS_CONFIG.serviceId,
+        EMAILJS_CONFIG.templateId,
+        templateParams,
+        EMAILJS_CONFIG.publicKey
+      );
 
-    // Show success message
-    setSubmitStatus('success');
-    form.reset();
+      // Show success message
+      setSubmitStatus('success');
+      form.reset();
 
-    // Reset success message and button after 3 seconds
-    setTimeout(() => {
-      setSubmitStatus('idle');
+      // Reset success message and button after 3 seconds
+      setTimeout(() => {
+        setSubmitStatus('idle');
+        setIsSubmitting(false);
+      }, 3000);
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setSubmitStatus('error');
       setIsSubmitting(false);
-    }, 3000);
+    }
   };
 
   return (
@@ -127,6 +139,32 @@ export const ContactPage: React.FC = () => {
                     required
                     className="w-full px-6 py-4 bg-stone-50 rounded-2xl border border-transparent focus:border-emerald-500 focus:bg-white transition-all outline-none font-medium"
                   />
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-bold text-stone-700 mb-2 ml-1">City</label>
+                    <input
+                      type="text"
+                      name="city"
+                      placeholder="Seattle, Kent, etc."
+                      required
+                      className="w-full px-6 py-4 bg-stone-50 rounded-2xl border border-transparent focus:border-emerald-500 focus:bg-white transition-all outline-none font-medium"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-stone-700 mb-2 ml-1">Preferred Contact Time</label>
+                    <select
+                      name="time"
+                      required
+                      className="w-full px-6 py-4 bg-stone-50 rounded-2xl border border-transparent focus:border-emerald-500 focus:bg-white transition-all outline-none font-medium appearance-none"
+                    >
+                      <option value="">Select time...</option>
+                      <option value="morning">Morning (8AM - 12PM)</option>
+                      <option value="afternoon">Afternoon (12PM - 5PM)</option>
+                      <option value="evening">Evening (5PM - 8PM)</option>
+                      <option value="anytime">Anytime</option>
+                    </select>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-stone-700 mb-2 ml-1">Service Type</label>
