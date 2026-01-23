@@ -3,12 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { MapPin, Mail, Phone, Send, Check, Leaf, ExternalLink, MessageCircle } from 'lucide-react';
 import { EMAIL, PHONE, ADDRESS, AREAS } from '../constants';
 import emailjs from '@emailjs/browser';
-
-// EmailJS Configuration - Replace these values with your EmailJS credentials
-// Get these from: https://www.emailjs.com/
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';  // Replace with your Service ID
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // Replace with your Template ID
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';  // Replace with your Public Key
+import { EMAILJS_CONFIG, isEmailConfigured } from '../emailConfig';
 
 export const ContactPage: React.FC = () => {
   useEffect(() => {
@@ -28,25 +23,26 @@ export const ContactPage: React.FC = () => {
     const formData = new FormData(form);
 
     // Check if EmailJS is configured
-    if (EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID') {
-      alert(`Thank you for contacting Alberto's Landscaping!\n\nNote: EmailJS not yet configured. See README.md for setup instructions.`);
+    if (!isEmailConfigured()) {
+      alert(`Thank you for contacting Alberto's Landscaping!\n\n⚠️ EMAIL NOT CONFIGURED: To receive form submissions, please set up EmailJS.\nSee emailConfig.ts for detailed instructions.`);
       setIsSubmitting(false);
       return;
     }
 
     try {
-      // Send email using EmailJS
+      // Send email to Alberto.30am@yahoo.com using EmailJS
       await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
         {
           from_name: formData.get('name'),
           phone: formData.get('phone'),
           email: formData.get('email'),
           service: formData.get('service'),
           message: formData.get('message'),
+          to_email: EMAILJS_CONFIG.RECIPIENT_EMAIL,
         },
-        EMAILJS_PUBLIC_KEY
+        EMAILJS_CONFIG.PUBLIC_KEY
       );
 
       setSubmitStatus('success');

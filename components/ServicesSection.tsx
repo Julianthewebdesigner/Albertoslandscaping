@@ -1,9 +1,23 @@
 import React from 'react';
 import { SERVICES } from '../constants';
-import { Leaf, Trees, Sprout, Wind, Hammer, Palette, Truck, ArrowUpRight, ArrowRight } from 'lucide-react';
+import { ArrowUpRight, ArrowRight } from 'lucide-react';
 
-const IconMap: Record<string, React.FC<{ size?: number; strokeWidth?: number }>> = {
-  Leaf, Trees, Sprout, Wind, Hammer, Palette, Truck
+const ServiceImageMap: Record<string, string> = {
+  'Complete Lawn Solutions': '/images/home-page/completelawnsolutions.jpeg',
+  'Tree & Shrub Care': '/images/home-page/tree-and-shrubcare.jpeg',
+  'Material Delivery & Installation': '/images/home-page/materialdelivery.jpeg',
+  'Seasonal Clean-Up': '/images/home-page/seasonalcleanups.jpeg',
+  'Hardscape Installation': '/images/home-page/hardscape.jpeg',
+  'Landscape Design': '/images/home-page/completelawnsolutions.jpeg', // Fallback to lawn image
+};
+
+const ServiceAltTextMap: Record<string, string> = {
+  'Complete Lawn Solutions': 'Professional lawn mowing and maintenance services in Seattle and Kent WA',
+  'Tree & Shrub Care': 'Expert tree trimming and shrub pruning services in Bellevue and Renton WA',
+  'Material Delivery & Installation': 'Landscape material delivery and installation in Auburn and Federal Way WA',
+  'Seasonal Clean-Up': 'Fall and spring seasonal cleanup services in Seattle metro area',
+  'Hardscape Installation': 'Custom patio and hardscape installation in Kent and Seattle WA',
+  'Landscape Design': 'Professional landscape design services for Seattle area homes',
 };
 
 interface ServicesSectionProps {
@@ -40,33 +54,34 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSeeAll }) =>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {SERVICES.slice(0, 6).map((service) => {
-            const Icon = IconMap[service.icon];
+            const serviceImage = ServiceImageMap[service.title];
+            const altText = ServiceAltTextMap[service.title];
             return (
-              <div 
+              <div
                 key={service.id}
                 onClick={onSeeAll}
-                className="group relative bg-white rounded-[3rem] p-10 shadow-sm border border-stone-100 hover:shadow-2xl transition-all duration-500 flex flex-col h-full hover:-translate-y-4 cursor-pointer card-glow overflow-hidden"
+                className="group relative bg-white rounded-[3rem] shadow-sm border border-stone-100 hover:shadow-2xl transition-all duration-500 flex flex-col h-full hover:-translate-y-4 cursor-pointer card-glow overflow-hidden"
               >
-                {/* Visual Accent */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-lime-400/5 rounded-full -mr-16 -mt-16 blur-3xl transition-all duration-500 group-hover:bg-lime-400/20"></div>
-
-                {/* Glowing Icon Header */}
-                <div className="mb-8 relative w-fit">
-                  <div className="absolute -inset-4 bg-lime-400/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="w-20 h-20 bg-stone-50 rounded-3xl flex items-center justify-center text-emerald-800 shadow-sm border border-stone-100 group-hover:bg-emerald-900 group-hover:text-lime-400 hover-glow transition-all duration-500 transform group-hover:rotate-12">
-                    <Icon size={36} strokeWidth={1.5} />
-                  </div>
+                {/* Image Header */}
+                <div className="relative w-full h-48 overflow-hidden rounded-t-[3rem]">
+                  <img
+                    src={serviceImage}
+                    alt={altText}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
                 </div>
 
                 {/* Content Area */}
-                <div className="flex flex-col flex-grow">
+                <div className="flex flex-col flex-grow p-10">
                   <h3 className="text-2xl font-bold text-stone-900 mb-4 group-hover:text-emerald-800 transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-stone-500 leading-relaxed mb-8 flex-grow">
                     {service.description}
                   </p>
-                  
+
                   {/* Action Link */}
                   <div className="flex items-center justify-between mt-auto pt-8 border-t border-stone-50">
                     <span className="flex items-center gap-2 font-bold text-stone-900 group-hover:text-emerald-600 transition-colors tracking-tight text-sm uppercase">

@@ -2,12 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-
-// EmailJS Configuration - Replace these values with your EmailJS credentials
-// Get these from: https://www.emailjs.com/
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';  // Replace with your Service ID
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // Replace with your Template ID
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';  // Replace with your Public Key
+import { EMAILJS_CONFIG, isEmailConfigured } from '../emailConfig';
 
 export const Hero: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -28,24 +23,25 @@ export const Hero: React.FC = () => {
     setSubmitStatus('idle');
 
     // Check if EmailJS is configured
-    if (EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID') {
-      alert(`Thank you! Alberto will contact you regarding ${formData.service} at ${formData.location}.\n\nNote: EmailJS not yet configured. See README.md for setup instructions.`);
+    if (!isEmailConfigured()) {
+      alert(`Thank you! Alberto will contact you regarding ${formData.service} at ${formData.location}.\n\n⚠️ EMAIL NOT CONFIGURED: To receive form submissions, please set up EmailJS.\nSee emailConfig.ts for detailed instructions.`);
       setIsSubmitting(false);
       return;
     }
 
     try {
-      // Send email using EmailJS
+      // Send email to Alberto.30am@yahoo.com using EmailJS
       await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
         {
           from_name: formData.from_name || 'Quick Quote Request',
           service: formData.service,
           location: formData.location,
           phone: formData.phone,
+          to_email: EMAILJS_CONFIG.RECIPIENT_EMAIL,
         },
-        EMAILJS_PUBLIC_KEY
+        EMAILJS_CONFIG.PUBLIC_KEY
       );
 
       setSubmitStatus('success');
@@ -77,13 +73,14 @@ export const Hero: React.FC = () => {
     <section className="relative min-h-[95vh] flex items-center pt-24 pb-12 overflow-hidden">
       {/* Background Image with animated overlay */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1558905619-1714249d3744?auto=format&fit=crop&q=80&w=2000" 
-          alt="" 
+        <img
+          src="/images/home-page/completelawnsolutions.jpeg"
+          alt="Professional lawn care and landscaping services in Seattle, Kent, and Bellevue WA - Alberto's Landscaping"
           className="w-full h-full object-cover"
+          loading="eager"
         />
-        <div className="absolute inset-0 animated-gradient opacity-80" />
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-emerald-950/70" />
+        <div className="absolute inset-0 animated-gradient opacity-40" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-16 items-center">
@@ -94,11 +91,11 @@ export const Hero: React.FC = () => {
             <span className="text-xs font-bold uppercase tracking-widest">Accepting New Year Projects</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
-            Highest-Rated <span className="text-lime-400 italic">Lawn Care</span> Services In Kent & Seattle
+            Highest-Rated <span className="text-lime-400 italic">Lawn Care</span> & Landscaping Services In Seattle, Kent & Bellevue
           </h1>
-          
+
           <p className="text-lg md:text-xl text-white/80 mb-8 max-w-lg leading-relaxed font-light">
-            Professional landscape design and maintenance built on precision, passion, and Pacific Northwest values since 2012.
+            Professional landscape design and maintenance serving Seattle, Kent, Renton, Bellevue, Auburn, and Federal Way. Family-owned with 20+ years of Pacific Northwest expertise since 2012.
           </p>
 
           <div className="flex flex-wrap gap-6 items-center">

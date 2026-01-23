@@ -29,12 +29,12 @@ export const TrustSection: React.FC<TrustSectionProps> = ({ onAboutClick }) => {
           </div>
           
           <h2 className="text-4xl md:text-6xl font-bold text-stone-900 mb-8 leading-tight">
-            Rooted in Kent,<br/>
-            <span className="text-emerald-700 italic">Growing Across Washington</span>
+            Rooted in Kent, Serving<br/>
+            <span className="text-emerald-700 italic">Seattle & Puget Sound</span>
           </h2>
-          
+
           <p className="text-xl md:text-2xl text-stone-600 leading-relaxed mb-12 max-w-3xl mx-auto">
-            At {BUSINESS_NAME}, we believe your outdoor space should be an extension of your home. Led by Alberto Aguilar and his son Julian, we prioritize health, aesthetics, and long-term sustainability.
+            At {BUSINESS_NAME}, we believe your outdoor space should be an extension of your home. Proudly serving Seattle, Kent, Bellevue, Renton, Auburn, Federal Way, and surrounding communities. Led by Alberto Aguilar and his son Julian, we prioritize health, aesthetics, and long-term sustainability.
           </p>
           
           <div className="inline-block p-10 bg-stone-50 rounded-[3rem] border-t-4 border-lime-400 mb-12 shadow-sm relative group">

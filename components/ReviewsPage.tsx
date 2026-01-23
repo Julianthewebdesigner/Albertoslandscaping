@@ -116,14 +116,25 @@ export const ReviewsPage: React.FC = () => {
 
       {/* Full Review Grid */}
       <section className="py-24 px-4 md:px-8 max-w-7xl mx-auto">
+        {/*
+          CUSTOMIZE: Add customer photos (optional)
+          1. Add photos to: public/images/customer-[name].jpg
+          2. Recommended size: 400x400 pixels (square)
+          3. Replace the initials div below with:
+             <img
+               src="/images/customer-[name].jpg"
+               alt={review.name}
+               className="w-12 h-12 rounded-full object-cover shadow-inner"
+             />
+        */}
         <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
           {DETAILED_REVIEWS.map((review, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className="break-inside-avoid-column bg-white p-10 rounded-[3rem] border border-stone-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group relative flex flex-col"
             >
               <Quote className="absolute top-10 right-10 text-stone-50 group-hover:text-lime-400/20 transition-colors" size={50} />
-              
+
               <div className="flex items-center gap-4 mb-6 relative z-10">
                 <div className="w-12 h-12 rounded-full bg-emerald-900 flex items-center justify-center text-white font-bold text-lg shadow-inner">
                   {review.initials}

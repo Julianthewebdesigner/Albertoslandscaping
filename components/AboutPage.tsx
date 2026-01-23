@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { CheckCircle, Shield, Clock, DollarSign, Rocket, ThumbsUp, Heart, Users, Laptop } from 'lucide-react';
+import { CheckCircle, Shield, Clock, DollarSign, Rocket, ThumbsUp, Heart } from 'lucide-react';
 
 interface AboutPageProps {
   onNavigate: (view: 'home' | 'services' | 'about' | 'reviews' | 'contact') => void;
@@ -49,8 +49,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           {/* Alberto */}
           <div className="group bg-white p-12 rounded-[3rem] shadow-sm border border-stone-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
             <div className="mb-8">
-               <div className="w-20 h-20 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-800 mb-6 group-hover:bg-emerald-900 group-hover:text-lime-400 transition-colors duration-500">
-                  <Users size={40} />
+               <div className="mb-6">
+                 <img
+                   src="/images/about-us/alberto.jpg"
+                   alt="Alberto Aguilar - Owner and master landscaper with 20+ years experience in Seattle and Kent WA"
+                   className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover shadow-lg border-4 border-emerald-100 group-hover:border-lime-400 group-hover:shadow-2xl group-hover:scale-110 transition-all duration-500"
+                   loading="lazy"
+                 />
                </div>
                <h2 className="text-4xl font-bold text-stone-900 mb-2">Alberto Aguilar</h2>
                <p className="text-emerald-600 font-bold uppercase tracking-widest text-sm">Owner & Master Craftsman</p>
@@ -66,8 +71,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           {/* Julian */}
           <div className="group bg-white p-12 rounded-[3rem] shadow-sm border border-stone-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
             <div className="mb-8">
-               <div className="w-20 h-20 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-800 mb-6 group-hover:bg-emerald-900 group-hover:text-lime-400 transition-colors duration-500">
-                  <Laptop size={40} />
+               <div className="mb-6">
+                 <img
+                   src="/images/about-us/julian.jpg"
+                   alt="Julian Aguilar - Project Manager for landscaping services in Seattle, Kent, and Bellevue WA"
+                   className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover shadow-lg border-4 border-emerald-100 group-hover:border-lime-400 group-hover:shadow-2xl group-hover:scale-110 transition-all duration-500"
+                   loading="lazy"
+                 />
                </div>
                <h2 className="text-4xl font-bold text-stone-900 mb-2">Julian Aguilar</h2>
                <p className="text-emerald-600 font-bold uppercase tracking-widest text-sm">Project Manager & Digital Director</p>

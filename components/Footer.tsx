@@ -3,7 +3,7 @@ import React from 'react';
 import { BUSINESS_NAME, PHONE, EMAIL, ADDRESS } from '../constants';
 
 interface FooterProps {
-  onNavigate: (view: 'home' | 'services' | 'about' | 'reviews' | 'contact') => void;
+  onNavigate: (view: 'home' | 'services' | 'about' | 'reviews' | 'contact' | 'projects') => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
@@ -28,6 +28,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <ul className="space-y-4 text-stone-400">
               <li><a href="#" onClick={(e) => { e.preventDefault(); onNavigate('home'); }} className="hover:text-lime-400 transition-colors">Home Page</a></li>
               <li><a href="#" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-lime-400 transition-colors">Our Services</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); onNavigate('projects'); }} className="hover:text-lime-400 transition-colors">Featured Projects</a></li>
               <li><a href="#" onClick={(e) => { e.preventDefault(); onNavigate('about'); }} className="hover:text-lime-400 transition-colors">About Our Team</a></li>
               <li><a href="#" onClick={(e) => { e.preventDefault(); onNavigate('reviews'); }} className="hover:text-lime-400 transition-colors">Client Reviews</a></li>
               <li><a href="#" onClick={(e) => { e.preventDefault(); onNavigate('contact'); }} className="hover:text-lime-400 transition-colors text-white font-bold">Contact Us</a></li>

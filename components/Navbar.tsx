@@ -4,7 +4,7 @@ import { BUSINESS_NAME, PHONE } from '../constants';
 import { Phone, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
-  onNavigate: (view: 'home' | 'services' | 'about' | 'reviews' | 'contact') => void;
+  onNavigate: (view: 'home' | 'services' | 'about' | 'reviews' | 'contact' | 'projects') => void;
   currentView: string;
 }
 
@@ -18,7 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (view: 'home' | 'services' | 'about' | 'reviews' | 'contact', e: React.MouseEvent) => {
+  const handleNavClick = (view: 'home' | 'services' | 'about' | 'reviews' | 'contact' | 'projects', e: React.MouseEvent) => {
     e.preventDefault();
     onNavigate(view);
     setMobileMenuOpen(false);
@@ -27,6 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
   const navLinks = [
     { label: 'Home', view: 'home' },
     { label: 'Services', view: 'services' },
+    { label: 'Projects', view: 'projects' },
     { label: 'About', view: 'about' },
     { label: 'Reviews', view: 'reviews' },
     { label: 'Contact', view: 'contact' },

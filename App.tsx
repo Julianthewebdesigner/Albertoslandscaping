@@ -10,10 +10,11 @@ import { ServicesPage } from './components/ServicesPage';
 import { AboutPage } from './components/AboutPage';
 import { ReviewsPage } from './components/ReviewsPage';
 import { ContactPage } from './components/ContactPage';
+import { ProjectsPage } from './components/ProjectsPage';
 
 const App: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
-  const [currentView, setCurrentView] = useState<'home' | 'services' | 'about' | 'reviews' | 'contact'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'services' | 'about' | 'reviews' | 'contact' | 'projects'>('home');
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -21,7 +22,7 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navigateTo = (view: 'home' | 'services' | 'about' | 'reviews' | 'contact') => {
+  const navigateTo = (view: 'home' | 'services' | 'about' | 'reviews' | 'contact' | 'projects') => {
     setCurrentView(view);
     window.scrollTo(0, 0);
   };
@@ -48,10 +49,11 @@ const App: React.FC = () => {
             {/* Direct to contact from home if needed, otherwise rely on nav */}
           </>
         )}
-        {currentView === 'services' && <ServicesPage />}
+        {currentView === 'services' && <ServicesPage onNavigate={navigateTo} />}
         {currentView === 'about' && <AboutPage onNavigate={navigateTo} />}
         {currentView === 'reviews' && <ReviewsPage />}
         {currentView === 'contact' && <ContactPage />}
+        {currentView === 'projects' && <ProjectsPage onNavigate={navigateTo} />}
       </main>
 
       <Footer onNavigate={navigateTo} />

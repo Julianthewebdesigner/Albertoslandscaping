@@ -16,7 +16,7 @@ export const SERVICES: DetailedService[] = [
   {
     id: '1',
     title: 'Complete Lawn Solutions',
-    description: 'Expert mowing, edging, and professional treatment schedules to keep your lawn vibrant and healthy year-round.',
+    description: 'Expert lawn mowing, edging, and professional treatment schedules serving Seattle, Kent, and Bellevue to keep your lawn vibrant and healthy year-round in the Pacific Northwest climate.',
     imageUrl: '',
     icon: 'Leaf',
     features: ['Weekly Mowing & Edging', 'Fertilization & Weed Control', 'Aeration & Over-seeding', 'Sod Installation']
@@ -24,7 +24,7 @@ export const SERVICES: DetailedService[] = [
   {
     id: '2',
     title: 'Tree & Shrub Care',
-    description: 'Professional tree inspections, expert consultations, precision tree trimming, and meticulous shrub trimming for a safe, beautiful landscape.',
+    description: 'Professional tree inspections, expert consultations, precision tree trimming, and meticulous shrub pruning for safe, beautiful landscapes across the Seattle metro area.',
     imageUrl: '',
     icon: 'Trees',
     features: ['Structural Pruning', 'Tree Risk Assessment', 'Hedge & Shrub Shaping', 'Ornamental Tree Care']
@@ -32,7 +32,7 @@ export const SERVICES: DetailedService[] = [
   {
     id: '3',
     title: 'Material Delivery & Installation',
-    description: 'Bulk material transport including bark, gravel, and compost. We provide both delivery and professional spreading/installation to save you the heavy lifting.',
+    description: 'Bulk landscape material transport and installation throughout Kent, Auburn, and Federal Way including bark, gravel, and compost. We provide both delivery and professional spreading to save you the heavy lifting.',
     imageUrl: '',
     icon: 'Truck',
     features: ['Premium Mulch & Bark', 'Gravel & Decorative Stone', 'Organic Topsoil & Compost', 'Professional Spreading Service']
@@ -40,7 +40,7 @@ export const SERVICES: DetailedService[] = [
   {
     id: '4',
     title: 'Seasonal Clean-Up',
-    description: 'Comprehensive residential garden maintenance, leaf removal, and bed preparation to keep your home exterior pristine through every season.',
+    description: 'Comprehensive residential garden maintenance, leaf removal, and bed preparation for Seattle area homes to keep your property pristine through every Pacific Northwest season.',
     imageUrl: '',
     icon: 'Wind',
     features: ['Fall Leaf Removal', 'Spring Bed Prep', 'Debris Hauling', 'Perennial Cutting & Pruning']
@@ -48,7 +48,7 @@ export const SERVICES: DetailedService[] = [
   {
     id: '5',
     title: 'Landscape Design',
-    description: 'Transformative conceptual designs for outdoor living spaces that blend functionality with the natural beauty of the Pacific Northwest.',
+    description: 'Transformative landscape design for outdoor living spaces in Bellevue, Renton, and surrounding areas that blend functionality with the natural beauty of the Pacific Northwest.',
     imageUrl: '',
     icon: 'Palette',
     features: ['Site Consultations', 'Custom 2D/3D Designs', 'Planting Plans', 'Sustainable Gardening Solutions']
@@ -56,7 +56,7 @@ export const SERVICES: DetailedService[] = [
   {
     id: '6',
     title: 'Hardscape Installation',
-    description: 'High-quality patios, walkways, pavers, and retaining walls built with precision to enhance your property value and lifestyle.',
+    description: 'High-quality patio, walkway, paver, and retaining wall installation in Seattle and Kent built with precision to enhance your property value and outdoor lifestyle.',
     imageUrl: '',
     icon: 'Hammer',
     features: ['Stone & Paver Patios', 'Retaining Walls', 'Walkway Design', 'Fire Pit Installation']

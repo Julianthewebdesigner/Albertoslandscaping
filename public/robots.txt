@@ -1,0 +1,12 @@
+# robots.txt for Alberto's Landscaping LLC
+# https://albertoslandscaping.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://albertoslandscaping.com/sitemap.xml
+
+# Disallow admin/sensitive pages (if any)
+# Disallow: /admin/
+# Disallow: /private/

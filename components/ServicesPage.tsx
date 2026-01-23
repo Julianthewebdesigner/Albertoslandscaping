@@ -2,11 +2,60 @@
 import React, { useEffect } from 'react';
 import { SERVICES } from '../constants';
 import { CheckCircle2, ArrowRight, ArrowLeft } from 'lucide-react';
+import { EMAIL } from '../constants';
 
-export const ServicesPage: React.FC = () => {
+interface ServicesPageProps {
+  onNavigate?: (view: 'home' | 'services' | 'about' | 'reviews' | 'contact' | 'projects') => void;
+}
+
+export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleServiceInquiry = (serviceTitle: string, serviceDescription: string, features: string[]) => {
+    // Create pre-filled email with service details
+    const subject = encodeURIComponent(`Service Inquiry - ${serviceTitle}`);
+    const body = encodeURIComponent(
+      `Hello Alberto,\n\n` +
+      `I'm interested in learning more about your ${serviceTitle} services.\n\n` +
+      `Service Details:\n${serviceDescription}\n\n` +
+      `Specific features I'm interested in:\n` +
+      features.map(feature => `- ${feature}`).join('\n') +
+      `\n\nPlease contact me to discuss how you can help with my landscaping needs.\n\n` +
+      `Thank you!`
+    );
+
+    // Try to navigate to contact page, fallback to email
+    if (onNavigate) {
+      onNavigate('contact');
+    } else {
+      window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    }
+  };
+
+  const handleGetEstimate = () => {
+    if (onNavigate) {
+      onNavigate('contact');
+    } else {
+      const subject = encodeURIComponent('Free Estimate Request');
+      const body = encodeURIComponent(
+        `Hello Alberto,\n\n` +
+        `I'd like to request a free estimate for landscaping services.\n\n` +
+        `Please contact me to discuss my project.\n\n` +
+        `Thank you!`
+      );
+      window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    }
+  };
+
+  const handleBackToHome = () => {
+    if (onNavigate) {
+      onNavigate('home');
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="bg-stone-50 min-h-screen">
@@ -22,22 +71,41 @@ export const ServicesPage: React.FC = () => {
             <div className="h-[1px] w-12 bg-lime-400/50"></div>
           </div>
           <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight tracking-tight">
-            Our Specialist <br/>
-            <span className="italic text-lime-400 font-light">Outdoor Solutions</span>
+            Professional Landscaping<br/>
+            <span className="italic text-lime-400 font-light">Services in Seattle & Kent</span>
           </h1>
           <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed">
-            Elevating Kent and Seattle properties with precision care, owner-operated oversight, and professional grade results.
+            Elevating properties across Seattle, Kent, Bellevue, Renton, Auburn, and Federal Way with precision care, owner-operated oversight, and professional-grade results.
           </p>
         </div>
       </section>
 
       {/* Main Services Grid - Transitioned to minimalist single column */}
       <section className="py-24 px-4 md:px-8 max-w-5xl mx-auto">
+        {/*
+          CUSTOMIZE: Add service images
+          1. Add images to public/images/ folder:
+             - service-lawn-maintenance.jpg
+             - service-tree-pruning.jpg
+             - service-landscape-design.jpg
+             - service-hardscaping.jpg
+             - service-cleanup.jpg
+             - service-materials.jpg
+             - service-irrigation.jpg
+          2. Recommended size: 1200x800 pixels
+          3. Add <img> tag in each service div below
+             Example:
+             <img
+               src={`/images/service-${service.id}.jpg`}
+               alt={service.title}
+               className="w-full h-64 object-cover rounded-3xl mb-8"
+             />
+        */}
         <div className="space-y-32">
           {SERVICES.map((service, index) => {
             return (
-              <div 
-                key={service.id} 
+              <div
+                key={service.id}
                 className="group border-l-2 border-stone-200 pl-8 md:pl-16 hover:border-lime-400 transition-colors duration-500"
               >
                 <div className="inline-block text-emerald-600 font-black text-xs uppercase tracking-[0.3em] mb-6">
@@ -63,13 +131,13 @@ export const ServicesPage: React.FC = () => {
                       ))}
                     </div>
 
-                    <a 
-                      href="#contact" 
-                      className="btn-beam inline-flex items-center gap-4 px-10 py-5 rounded-2xl bg-emerald-900 text-white font-bold hover:bg-emerald-800 transition-all duration-300 shadow-xl hover:shadow-emerald-200/50 group/btn"
+                    <button
+                      onClick={() => handleServiceInquiry(service.title, service.description, service.features)}
+                      className="btn-beam inline-flex items-center gap-4 px-10 py-5 rounded-2xl bg-emerald-900 text-white font-bold hover:bg-emerald-800 transition-all duration-300 shadow-xl hover:shadow-emerald-200/50 group/btn cursor-pointer"
                     >
                       Inquire About {service.title}
                       <ArrowRight size={20} className="group-hover/btn:translate-x-2 transition-transform" />
-                    </a>
+                    </button>
                   </div>
 
                   {/* Decorative number for minimalist visual balance */}
@@ -96,12 +164,15 @@ export const ServicesPage: React.FC = () => {
             Join hundreds of satisfied homeowners in Kent and Seattle who trust Alberto for their outdoor maintenance and design needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
-             <button className="px-14 py-6 bg-lime-400 text-emerald-950 rounded-2xl font-bold text-xl hover:bg-lime-300 transition-all shadow-2xl hover:-translate-y-2">
+             <button
+               onClick={handleGetEstimate}
+               className="px-14 py-6 bg-lime-400 text-emerald-950 rounded-2xl font-bold text-xl hover:bg-lime-300 transition-all shadow-2xl hover:-translate-y-2 cursor-pointer"
+             >
                Get Your Free Estimate
              </button>
-             <button 
-               onClick={() => window.location.href = '#'}
-               className="flex items-center gap-2 text-white/80 hover:text-white font-bold transition-all group"
+             <button
+               onClick={handleBackToHome}
+               className="flex items-center gap-2 text-white/80 hover:text-white font-bold transition-all group cursor-pointer"
              >
                <ArrowLeft size={20} className="group-hover:-translate-x-2 transition-transform" /> Back to Home Page
              </button>

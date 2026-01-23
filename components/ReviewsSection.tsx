@@ -67,9 +67,20 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ onSeeAll }) => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
+          {/*
+            CUSTOMIZE: Add customer photos (optional)
+            1. Add photos to: public/images/customer-[name].jpg
+            2. Recommended size: 400x400 pixels (square)
+            3. Replace the initials div with:
+               <img
+                 src="/images/customer-[name].jpg"
+                 alt={review.name}
+                 className="w-14 h-14 rounded-full object-cover shadow-lg border-2 border-white"
+               />
+          */}
           {PREVIEW_REVIEWS.map((review, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               onClick={onSeeAll}
               className="bg-white p-8 md:p-10 rounded-[2.5rem] border border-stone-100 shadow-sm hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 group relative flex flex-col h-full cursor-pointer"
             >
