@@ -14,7 +14,7 @@ const PREVIEW_REVIEWS = [
     name: "Michael Rodriguez",
     date: "1 month ago",
     rating: 5,
-    text: "Best tree trimming service in Kent. They handled a difficult tree removal with ease and safety. They cleaned up every branch and left the property spotless. Highly recommend!",
+    text: "Alberto's crew transformed our backyard with a beautiful paver patio and walkway. They were efficient, cleaned up completely, and the quality of the work is outstanding. Highly recommend!",
     initials: "MR"
   },
   {

@@ -62,7 +62,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
     <>
       <MetaTags
         title="Our Services - Professional Landscaping Seattle & Kent | Alberto's Landscaping LLC"
-        description="Full-service landscaping in Seattle, Kent & Bellevue: Lawn care, tree trimming, hardscaping, irrigation, seasonal cleanup. Licensed & insured. Free estimates!"
+        description="Full-service landscaping in Seattle, Kent & Bellevue: Lawn care, hardscaping, landscape design, material delivery, seasonal cleanup. Licensed & insured. Free estimates!"
         image="https://albertoslandscaping.com/images/home-page/hardscape.jpeg"
         url="https://albertoslandscaping.com/services"
       />

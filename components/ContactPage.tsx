@@ -158,7 +158,6 @@ export const ContactPage: React.FC = () => {
                   >
                     <option value="">Select a service...</option>
                     <option value="lawn">Lawn Maintenance</option>
-                    <option value="tree">Tree Care</option>
                     <option value="landscape">Landscape Design</option>
                     <option value="hardscape">Hardscaping</option>
                   </select>

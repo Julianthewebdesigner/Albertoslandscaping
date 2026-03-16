@@ -11,7 +11,7 @@ interface MetaTagsProps {
 
 export const MetaTags: React.FC<MetaTagsProps> = ({
   title = "Professional Landscaping Services Seattle, Kent & Bellevue WA | Alberto's Landscaping LLC",
-  description = "Expert landscaping services in Seattle, Kent, Bellevue & Renton WA. Lawn care, tree trimming, hardscaping, seasonal cleanup. Licensed, insured, family-owned since 2012.",
+  description = "Expert landscaping services in Seattle, Kent, Bellevue & Renton WA. Lawn care, hardscaping, landscape design, seasonal cleanup. Licensed, insured, family-owned since 2012.",
   image = "https://albertoslandscaping.com/images/home-page/completelawnsolutions.jpeg",
   url = "https://albertoslandscaping.com",
   type = "website"

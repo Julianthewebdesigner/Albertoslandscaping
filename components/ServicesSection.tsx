@@ -4,7 +4,6 @@ import { ArrowUpRight, ArrowRight } from 'lucide-react';
 
 const ServiceImageMap: Record<string, string> = {
   'Complete Lawn Solutions': '/images/home-page/completelawnsolutions.jpeg',
-  'Tree & Shrub Care': '/images/home-page/tree-and-shrubcare.jpeg',
   'Material Delivery & Installation': '/images/home-page/materialdelivery.jpeg',
   'Seasonal Clean-Up': '/images/home-page/seasonalcleanups.jpeg',
   'Hardscape Installation': '/images/home-page/hardscape.jpeg',
@@ -13,7 +12,6 @@ const ServiceImageMap: Record<string, string> = {
 
 const ServiceAltTextMap: Record<string, string> = {
   'Complete Lawn Solutions': 'Professional lawn mowing and maintenance services in Seattle and Kent WA',
-  'Tree & Shrub Care': 'Expert tree trimming and shrub pruning services in Bellevue and Renton WA',
   'Material Delivery & Installation': 'Landscape material delivery and installation in Auburn and Federal Way WA',
   'Seasonal Clean-Up': 'Fall and spring seasonal cleanup services in Seattle metro area',
   'Hardscape Installation': 'Custom patio and hardscape installation in Kent and Seattle WA',
@@ -39,7 +37,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSeeAll }) =>
             </div>
             <h2 className="text-4xl md:text-6xl font-bold text-stone-900 mb-6">Our Services</h2>
             <p className="text-stone-500 text-lg leading-relaxed">
-              From meticulous lawn maintenance to complex tree consultations, we provide the expert care your Pacific Northwest home deserves.
+              From meticulous lawn maintenance to custom hardscaping and landscape design, we provide the expert care your Pacific Northwest home deserves.
             </p>
           </div>
           

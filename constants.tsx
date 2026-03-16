@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Leaf, Trees, Sprout, Wind, Hammer, Palette, Truck } from 'lucide-react';
+import { Leaf, Sprout, Wind, Hammer, Palette, Truck } from 'lucide-react';
 import { Service } from './types';
 
 export const BUSINESS_NAME = "Alberto's Landscaping LLC";
@@ -20,14 +20,6 @@ export const SERVICES: DetailedService[] = [
     imageUrl: '',
     icon: 'Leaf',
     features: ['Weekly Mowing & Edging', 'Fertilization & Weed Control', 'Aeration & Over-seeding', 'Sod Installation']
-  },
-  {
-    id: '2',
-    title: 'Tree & Shrub Care',
-    description: 'Professional tree inspections, expert consultations, precision tree trimming, and meticulous shrub pruning for safe, beautiful landscapes across the Seattle metro area.',
-    imageUrl: '',
-    icon: 'Trees',
-    features: ['Structural Pruning', 'Tree Risk Assessment', 'Hedge & Shrub Shaping', 'Ornamental Tree Care']
   },
   {
     id: '3',
