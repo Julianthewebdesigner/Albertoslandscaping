@@ -94,7 +94,6 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
           CUSTOMIZE: Add service images
           1. Add images to public/images/ folder:
              - service-lawn-maintenance.jpg
-             - service-tree-pruning.jpg
              - service-landscape-design.jpg
              - service-hardscaping.jpg
              - service-cleanup.jpg

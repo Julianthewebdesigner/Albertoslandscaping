@@ -35,7 +35,7 @@ export const SERVICES: DetailedService[] = [
     description: 'Comprehensive residential garden maintenance, leaf removal, and bed preparation for Seattle area homes to keep your property pristine through every Pacific Northwest season.',
     imageUrl: '',
     icon: 'Wind',
-    features: ['Fall Leaf Removal', 'Spring Bed Prep', 'Debris Hauling', 'Perennial Cutting & Pruning']
+    features: ['Fall Leaf Removal', 'Spring Bed Prep', 'Debris Hauling', 'Perennial Bed Maintenance']
   },
   {
     id: '5',

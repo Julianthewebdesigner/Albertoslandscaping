@@ -12,4 +12,4 @@ export interface Area {
   coordinates: { lat: number; lng: number };
 }
 
-export type ServiceType = 'Lawn Care' | 'Tree & Shrub' | 'Hardscaping' | 'Cleanup' | 'Landscape Design';
+export type ServiceType = 'Lawn Care' | 'Hardscaping' | 'Cleanup' | 'Landscape Design';

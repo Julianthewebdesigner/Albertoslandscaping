@@ -159,7 +159,6 @@ export const Hero: React.FC = () => {
                 >
                   <option value="">Select a service...</option>
                   <option value="Lawn Maintenance">Lawn Maintenance</option>
-                  <option value="Tree Pruning">Tree Pruning</option>
                   <option value="Landscape Design">Landscape Design</option>
                   <option value="Hardscaping">Hardscaping</option>
                   <option value="Seasonal Clean-up">Seasonal Clean-up</option>
