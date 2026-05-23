@@ -48,8 +48,8 @@ const App: React.FC = () => {
               <MetaTags
                 title="Professional Landscaping Services Seattle, Kent & Bellevue WA | Alberto's Landscaping LLC"
                 description="Expert landscaping services in Seattle, Kent, Bellevue & Renton WA. Lawn care, hardscaping, landscape design, seasonal cleanup. Licensed, insured, family-owned since 2012."
-                image="https://albertoslandscaping.com/images/home-page/completelawnsolutions.jpeg"
-                url="https://albertoslandscaping.com"
+                image="https://albertoslandscaping.com/og-image.jpg?v=2"
+                url="https://albertoslandscaping.com/"
               />
               <Hero />
               <TrustSection onAboutClick={() => navigateTo('about')} />
